@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Магазин — Murder Mystery 2</title>
+
+<title>MM2 Shop</title>
 
 <style>
 * {
@@ -24,63 +25,62 @@ body {
     padding: 0 15px;
 }
 
-.product-page {
+/* ================= ТОВАР ================= */
+
+.product {
     background: white;
     border-radius: 12px;
     padding: 6px;
     display: grid;
-    grid-template-columns: minmax(500px, 2fr) minmax(350px, 1fr);
+    grid-template-columns: 2fr 1fr;
     gap: 35px;
 }
 
-.product-image {
+.product-img {
     width: 100%;
     height: 745px;
     object-fit: cover;
     border-radius: 8px;
-    display: block;
 }
 
 .info {
     padding: 10px 15px 30px 5px;
 }
 
-.price-line {
+.price-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .price {
     color: #ff174d;
-    font-size: 27px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .discount {
     background: #ff174d;
     color: white;
-    border-radius: 15px;
     padding: 4px 9px;
+    border-radius: 15px;
     font-weight: bold;
 }
 
 .old-price {
     color: #999;
     text-decoration: line-through;
-    font-size: 16px;
 }
 
 .title {
     font-size: 18px;
-    line-height: 1.45;
-    margin: 5px 0 12px;
+    line-height: 1.5;
+    margin-bottom: 12px;
 }
 
 .rating {
     color: #1764ff;
-    font-size: 16px;
     margin-bottom: 28px;
 }
 
@@ -92,18 +92,14 @@ body {
 }
 
 .delivery-title {
-    font-weight: bold;
     font-size: 17px;
-    margin-bottom: 10px;
-}
-
-.delivery-main {
-    font-size: 16px;
-    margin-bottom: 7px;
+    font-weight: bold;
+    margin-bottom: 12px;
 }
 
 .delivery-small {
-    color: #8b8f96;
+    color: #888;
+    margin-top: 7px;
     font-size: 14px;
 }
 
@@ -117,60 +113,58 @@ body {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .buy:hover {
-    background: #e6003f;
+    background: #e90042;
 }
 
 .guarantee {
     margin-top: 18px;
-    font-size: 16px;
 }
 
-/* ОПЛАТА */
+/* ================= ОПЛАТА ================= */
 
 .payment {
     display: none;
     max-width: 500px;
     margin: 40px auto;
     background: white;
-    border-radius: 16px;
     padding: 30px;
+    border-radius: 16px;
 }
 
 .payment h1 {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.product-mini {
+.order {
     display: flex;
-    gap: 15px;
+    gap: 14px;
     align-items: center;
-    background: #f3f4f6;
+    background: #f1f3f6;
+    border-radius: 10px;
     padding: 12px;
-    border-radius: 12px;
     margin-bottom: 25px;
 }
 
-.product-mini img {
+.order img {
     width: 80px;
     height: 65px;
     object-fit: cover;
     border-radius: 8px;
 }
 
-.product-mini b {
-    display: block;
-    margin-bottom: 5px;
+.order-price {
+    color: #ff174d;
+    font-weight: bold;
+    margin-top: 5px;
 }
 
 label {
     display: block;
     font-weight: bold;
-    margin-bottom: 7px;
-    margin-top: 16px;
+    margin: 15px 0 7px;
 }
 
 input {
@@ -195,16 +189,26 @@ input:focus {
     width: 50%;
 }
 
-.pay-button {
+.pay {
     width: 100%;
-    margin-top: 25px;
     height: 52px;
-    border: none;
-    border-radius: 9px;
+    margin-top: 25px;
     background: #ff174d;
     color: white;
+    border: none;
+    border-radius: 9px;
     font-size: 17px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.back {
+    width: 100%;
+    height: 45px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 9px;
+    background: #e9ebee;
     cursor: pointer;
 }
 
@@ -215,22 +219,58 @@ input:focus {
     margin-top: 12px;
 }
 
-.back {
-    width: 100%;
-    margin-top: 10px;
-    height: 45px;
-    border: none;
-    border-radius: 9px;
-    background: #e9ebee;
-    cursor: pointer;
+/* ================= ПРОВЕРКА ================= */
+
+.processing {
+    display: none;
+    max-width: 500px;
+    margin: 60px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 45px 30px;
+    text-align: center;
 }
 
-/* УСПЕШНАЯ ОПЛАТА */
+.loader {
+    width: 65px;
+    height: 65px;
+    border: 6px solid #eeeeee;
+    border-top: 6px solid #ff174d;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    animation: spin 1s linear infinite;
+}
+
+.processing h2 {
+    margin-bottom: 10px;
+}
+
+.processing p {
+    color: #777;
+}
+
+.status {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #555;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================= УСПЕШНО ================= */
 
 .success {
     display: none;
     max-width: 500px;
-    margin: 70px auto;
+    margin: 60px auto;
     background: white;
     border-radius: 16px;
     padding: 40px 30px;
@@ -240,18 +280,18 @@ input:focus {
 .success-icon {
     width: 75px;
     height: 75px;
+    border-radius: 50%;
     background: #22c55e;
     color: white;
-    border-radius: 50%;
-    margin: 0 auto 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 40px;
+    margin: 0 auto 20px;
 }
 
 .success h1 {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .success p {
@@ -259,7 +299,7 @@ input:focus {
     line-height: 1.6;
 }
 
-.user-result {
+.username {
     background: #f1f3f6;
     border-radius: 10px;
     padding: 13px;
@@ -267,12 +307,27 @@ input:focus {
     font-weight: bold;
 }
 
+.done {
+    width: 100%;
+    height: 50px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ================= МОБИЛЬНАЯ ВЕРСИЯ ================= */
+
 @media(max-width: 850px) {
-    .product-page {
+
+    .product {
         grid-template-columns: 1fr;
     }
 
-    .product-image {
+    .product-img {
         height: auto;
         max-height: 600px;
     }
@@ -288,27 +343,35 @@ input:focus {
 
 <div class="page">
 
-    <!-- СТРАНИЦА ТОВАРА -->
-    <div class="product-page" id="productPage">
+    <!-- ================= ТОВАР ================= -->
+
+    <div class="product" id="productPage">
 
         <div>
             <img
                 src="product.png"
-                class="product-image"
+                class="product-img"
                 alt="Murder Mystery 2"
             >
         </div>
 
         <div class="info">
 
-            <div class="price-line">
+            <div class="price-row">
                 <span class="price">210 ₽</span>
-                <span class="discount">-58%</span>
-                <span class="old-price">499</span>
+
+                <span class="discount">
+                    -58%
+                </span>
+
+                <span class="old-price">
+                    499
+                </span>
             </div>
 
             <div class="title">
-                🎁 АКЦИЯ 4 НОЖЕЙ + ПОДАРОК | Murder Mystery 2 🎁
+                🎁 АКЦИЯ 4 НОЖЕЙ + ПОДАРОК |
+                Murder Mystery 2 🎁
             </div>
 
             <div class="rating">
@@ -321,7 +384,7 @@ input:focus {
                     📦 Способ получения
                 </div>
 
-                <div class="delivery-main">
+                <div>
                     Трейд
                 </div>
 
@@ -331,12 +394,15 @@ input:focus {
 
             </div>
 
-            <button class="buy" onclick="openPayment()">
+            <button
+                class="buy"
+                onclick="openPayment()"
+            >
                 Купить
             </button>
 
             <div class="guarantee">
-                🛡️ Гарантия Playerok &nbsp;›
+                🛡️ Гарантия Playerok ›
             </div>
 
         </div>
@@ -344,30 +410,46 @@ input:focus {
     </div>
 
 
-    <!-- СТРАНИЦА ОПЛАТЫ -->
+    <!-- ================= ОПЛАТА ================= -->
+
     <div class="payment" id="paymentPage">
 
-        <h1>Оплата заказа</h1>
+        <h1>
+            Оплата заказа
+        </h1>
 
-        <div class="product-mini">
+        <div class="order">
 
             <img src="product.png">
 
             <div>
-                <b>4 ножей + подарок</b>
-                <span>Стоимость: <b>210 ₽</b></span>
+                <b>
+                    4 ножей + подарок
+                </b>
+
+                <div class="order-price">
+                    210 ₽
+                </div>
             </div>
 
         </div>
 
-        <label>Username</label>
+
+        <label>
+            Username
+        </label>
+
         <input
             id="username"
             type="text"
             placeholder="@username"
         >
 
-        <label>Номер карты</label>
+
+        <label>
+            Номер карты
+        </label>
+
         <input
             id="card"
             type="text"
@@ -375,60 +457,115 @@ input:focus {
             maxlength="19"
         >
 
+
         <div class="row">
 
             <div>
-                <label>Срок действия</label>
+
+                <label>
+                    Срок
+                </label>
+
                 <input
                     id="date"
                     type="text"
                     placeholder="MM/YY"
                     maxlength="5"
                 >
+
             </div>
 
+
             <div>
-                <label>CVV</label>
+
+                <label>
+                    CVV
+                </label>
+
                 <input
                     id="cvv"
                     type="text"
                     placeholder="000"
                     maxlength="3"
                 >
+
             </div>
 
         </div>
 
-        <button class="pay-button" onclick="pay()">
+
+        <button
+            class="pay"
+            onclick="startPayment()"
+        >
             Оплатить 210 ₽
         </button>
 
+
         <div class="demo">
-            🔒 Демо-оплата. Реальные деньги не списываются.
+            🔒 Демо-режим — реальные деньги не списываются
         </div>
 
-        <button class="back" onclick="backToProduct()">
-            ← Вернуться к товару
+
+        <button
+            class="back"
+            onclick="backToProduct()"
+        >
+            ← Назад
         </button>
 
     </div>
 
 
-    <!-- УСПЕШНАЯ ОПЛАТА -->
-    <div class="success" id="successPage">
+    <!-- ================= ПРОВЕРКА ================= -->
+
+    <div
+        class="processing"
+        id="processingPage"
+    >
+
+        <div class="loader"></div>
+
+        <h2 id="processingTitle">
+            Проверяем данные...
+        </h2>
+
+        <p id="processingText">
+            Подождите несколько секунд
+        </p>
+
+        <div
+            class="status"
+            id="status"
+        >
+            Подключение к платёжной системе...
+        </div>
+
+    </div>
+
+
+    <!-- ================= УСПЕШНАЯ ОПЛАТА ================= -->
+
+    <div
+        class="success"
+        id="successPage"
+    >
 
         <div class="success-icon">
             ✓
         </div>
 
-        <h1>Оплачено!</h1>
+        <h1>
+            Оплачено!
+        </h1>
 
         <p>
-            Заказ успешно оформлен.
+            Оплата успешно завершена.
         </p>
 
-        <div class="user-result">
-            Username: <span id="resultUsername"></span>
+        <div class="username">
+            Username:
+            <span id="resultUsername"></span>
         </div>
 
         <p>
@@ -436,7 +573,14 @@ input:focus {
             <b>1–14 дней</b>.
         </p>
 
-        <button class="pay-button" onclick="location.reload()">
+        <p style="margin-top:15px;">
+            Спасибо за покупку ❤️
+        </p>
+
+        <button
+            class="done"
+            onclick="location.reload()"
+        >
             Вернуться в магазин
         </button>
 
@@ -447,7 +591,9 @@ input:focus {
 
 <script>
 
-/* Открыть оплату */
+/* =========================================
+   ОТКРЫТЬ ОПЛАТУ
+========================================= */
 
 function openPayment() {
 
@@ -455,14 +601,13 @@ function openPayment() {
 
     document.getElementById("paymentPage").style.display = "block";
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    window.scrollTo(0, 0);
 }
 
 
-/* Вернуться к товару */
+/* =========================================
+   НАЗАД
+========================================= */
 
 function backToProduct() {
 
@@ -472,99 +617,240 @@ function backToProduct() {
 }
 
 
-/* Формат номера карты */
+/* =========================================
+   НОМЕР КАРТЫ
+========================================= */
 
-document.getElementById("card").addEventListener("input", function() {
+document.getElementById("card").addEventListener(
+    "input",
+    function() {
 
-    let value = this.value
-        .replace(/\D/g, "")
-        .substring(0, 16);
+        let value = this.value
+            .replace(/\D/g, "")
+            .substring(0, 16);
 
-    let parts = value.match(/.{1,4}/g);
+        let parts = value.match(/.{1,4}/g);
 
-    this.value = parts ? parts.join(" ") : "";
-});
-
-
-/* Формат срока */
-
-document.getElementById("date").addEventListener("input", function() {
-
-    let value = this.value
-        .replace(/\D/g, "")
-        .substring(0, 4);
-
-    if (value.length >= 3) {
-        value =
-            value.substring(0, 2)
-            + "/"
-            + value.substring(2);
+        this.value = parts
+            ? parts.join(" ")
+            : "";
     }
-
-    this.value = value;
-});
+);
 
 
-/* Только цифры CVV */
+/* =========================================
+   СРОК КАРТЫ
+========================================= */
 
-document.getElementById("cvv").addEventListener("input", function() {
+document.getElementById("date").addEventListener(
+    "input",
+    function() {
 
-    this.value = this.value
-        .replace(/\D/g, "")
-        .substring(0, 3);
-});
+        let value = this.value
+            .replace(/\D/g, "")
+            .substring(0, 4);
+
+        if (value.length >= 3) {
+
+            value =
+                value.substring(0, 2)
+                + "/"
+                + value.substring(2);
+        }
+
+        this.value = value;
+    }
+);
 
 
-/* Демо-оплата */
+/* =========================================
+   CVV
+========================================= */
 
-function pay() {
+document.getElementById("cvv").addEventListener(
+    "input",
+    function() {
+
+        this.value =
+            this.value
+            .replace(/\D/g, "")
+            .substring(0, 3);
+    }
+);
+
+
+/* =========================================
+   НАЧАЛО ДЕМО-ОПЛАТЫ
+========================================= */
+
+function startPayment() {
 
     const username =
-        document.getElementById("username").value.trim();
+        document
+        .getElementById("username")
+        .value
+        .trim();
 
     const card =
-        document.getElementById("card").value
+        document
+        .getElementById("card")
+        .value
         .replace(/\s/g, "");
 
     const date =
-        document.getElementById("date").value;
+        document
+        .getElementById("date")
+        .value;
 
     const cvv =
-        document.getElementById("cvv").value;
+        document
+        .getElementById("cvv")
+        .value;
 
+
+    /* Проверяем поля */
 
     if (!username) {
+
         alert("Введите username");
+
         return;
     }
+
 
     if (card.length !== 16) {
-        alert("Введите 16 цифр тестовой карты");
+
+        alert(
+            "Введите 16 цифр тестовой карты"
+        );
+
         return;
     }
+
 
     if (date.length !== 5) {
-        alert("Введите срок в формате MM/YY");
+
+        alert(
+            "Введите срок действия в формате MM/YY"
+        );
+
         return;
     }
+
 
     if (cvv.length !== 3) {
-        alert("Введите 3 цифры CVV");
+
+        alert(
+            "Введите 3 цифры тестового CVV"
+        );
+
         return;
     }
 
 
-    document.getElementById("paymentPage").style.display = "none";
+    /* Скрываем оплату */
 
-    document.getElementById("successPage").style.display = "block";
+    document.getElementById(
+        "paymentPage"
+    ).style.display = "none";
 
-    document.getElementById("resultUsername").textContent =
-        username;
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    /* Показываем проверку */
+
+    document.getElementById(
+        "processingPage"
+    ).style.display = "block";
+
+
+    window.scrollTo(0, 0);
+
+
+    /*
+       ЭТАП 1
+       Проверка
+    */
+
+    setTimeout(function() {
+
+        document.getElementById(
+            "processingTitle"
+        ).textContent =
+            "Проверяем данные...";
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            "Данные карты проверяются...";
+
+    }, 1000);
+
+
+    /*
+       ЭТАП 2
+       Подтверждение
+    */
+
+    setTimeout(function() {
+
+        document.getElementById(
+            "processingTitle"
+        ).textContent =
+            "Подтверждаем оплату...";
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            "Платёж подтверждён системой...";
+
+    }, 2200);
+
+
+    /*
+       ЭТАП 3
+       Симуляция списания
+    */
+
+    setTimeout(function() {
+
+        document.getElementById(
+            "processingTitle"
+        ).textContent =
+            "Списываем 210 ₽...";
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            "Проводим операцию...";
+
+    }, 3400);
+
+
+    /*
+       ЭТАП 4
+       Успешно
+    */
+
+    setTimeout(function() {
+
+        document.getElementById(
+            "processingPage"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "successPage"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "resultUsername"
+        ).textContent = username;
+
+
+        window.scrollTo(0, 0);
+
+    }, 5000);
+
 }
 
 </script>
