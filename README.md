@@ -1,857 +1,312 @@
-<html lang="ru">
+
+<html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MM2 Shop</title>
-
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f5f6f8;
-    color: #111;
-}
-
-.page {
-    max-width: 1250px;
-    margin: 30px auto;
-    padding: 0 15px;
-}
-
-/* ================= ТОВАР ================= */
-
-.product {
-    background: white;
-    border-radius: 12px;
-    padding: 6px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 35px;
-}
-
-.product-img {
-    width: 100%;
-    height: 745px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.info {
-    padding: 10px 15px 30px 5px;
-}
-
-.price-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.price {
-    color: #ff174d;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.discount {
-    background: #ff174d;
-    color: white;
-    padding: 4px 9px;
-    border-radius: 15px;
-    font-weight: bold;
-}
-
-.old-price {
-    color: #999;
-    text-decoration: line-through;
-}
-
-.title {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-}
-
-.rating {
-    color: #1764ff;
-    margin-bottom: 28px;
-}
-
-.delivery {
-    background: #f1f3f6;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 16px;
-}
-
-.delivery-title {
-    font-size: 17px;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.delivery-small {
-    color: #888;
-    margin-top: 7px;
-    font-size: 14px;
-}
-
-.buy {
-    width: 100%;
-    height: 53px;
-    background: #ff174d;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.buy:hover {
-    background: #e90042;
-}
-
-.guarantee {
-    margin-top: 18px;
-}
-
-/* ================= ОПЛАТА ================= */
-
-.payment {
-    display: none;
-    max-width: 500px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-}
-
-.payment h1 {
-    margin-bottom: 20px;
-}
-
-.order {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    background: #f1f3f6;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 25px;
-}
-
-.order img {
-    width: 80px;
-    height: 65px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.order-price {
-    color: #ff174d;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin: 15px 0 7px;
-}
-
-input {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #d5d7db;
-    border-radius: 9px;
-    font-size: 16px;
-    outline: none;
-}
-
-input:focus {
-    border-color: #ff174d;
-}
-
-.row {
-    display: flex;
-    gap: 10px;
-}
-
-.row div {
-    width: 50%;
-}
-
-.pay {
-    width: 100%;
-    height: 52px;
-    margin-top: 25px;
-    background: #ff174d;
-    color: white;
-    border: none;
-    border-radius: 9px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.back {
-    width: 100%;
-    height: 45px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 9px;
-    background: #e9ebee;
-    cursor: pointer;
-}
-
-.demo {
-    text-align: center;
-    color: #888;
-    font-size: 12px;
-    margin-top: 12px;
-}
-
-/* ================= ПРОВЕРКА ================= */
-
-.processing {
-    display: none;
-    max-width: 500px;
-    margin: 60px auto;
-    background: white;
-    border-radius: 16px;
-    padding: 45px 30px;
-    text-align: center;
-}
-
-.loader {
-    width: 65px;
-    height: 65px;
-    border: 6px solid #eeeeee;
-    border-top: 6px solid #ff174d;
-    border-radius: 50%;
-    margin: 0 auto 25px;
-    animation: spin 1s linear infinite;
-}
-
-.processing h2 {
-    margin-bottom: 10px;
-}
-
-.processing p {
-    color: #777;
-}
-
-.status {
-    margin-top: 25px;
-    font-size: 14px;
-    color: #555;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* ================= УСПЕШНО ================= */
-
-.success {
-    display: none;
-    max-width: 500px;
-    margin: 60px auto;
-    background: white;
-    border-radius: 16px;
-    padding: 40px 30px;
-    text-align: center;
-}
-
-.success-icon {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    background: #22c55e;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    margin: 0 auto 20px;
-}
-
-.success h1 {
-    margin-bottom: 10px;
-}
-
-.success p {
-    color: #555;
-    line-height: 1.6;
-}
-
-.username {
-    background: #f1f3f6;
-    border-radius: 10px;
-    padding: 13px;
-    margin: 20px 0;
-    font-weight: bold;
-}
-
-.done {
-    width: 100%;
-    height: 50px;
-    margin-top: 25px;
-    border: none;
-    border-radius: 9px;
-    background: #111827;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* ================= МОБИЛЬНАЯ ВЕРСИЯ ================= */
-
-@media(max-width: 850px) {
-
-    .product {
-        grid-template-columns: 1fr;
-    }
-
-    .product-img {
-        height: auto;
-        max-height: 600px;
-    }
-
-    .info {
-        padding: 10px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила та База Знань — UKRAINE RP | Emergency Hamburg</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #0057b7;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #searchBar {
+            flex: 1;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            background-color: #1e1e1e;
+            color: #fff;
+            font-size: 16px;
+        }
+        #toggleBtn {
+            padding: 12px 20px;
+            border-radius: 6px;
+            border: none;
+            background-color: #0057b7;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        #toggleBtn:hover {
+            background-color: #00428c;
+        }
+        .accordion {
+            background-color: #1e1e1e;
+            color: #fff;
+            cursor: pointer;
+            padding: 16px 20px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            transition: 0.3s;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #0057b7;
+        }
+        .active, .accordion:hover {
+            background-color: #2a2a2a;
+            border-left: 5px solid #ffd700;
+        }
+        .accordion::after {
+            content: '\02795';
+            font-size: 12px;
+        }
+        .active::after {
+            content: "\2796";
+        }
+        .panel {
+            padding: 0 20px;
+            background-color: #181818;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-radius: 0 0 6px 6px;
+        }
+        .panel h3 {
+            color: #ffd700;
+            margin-top: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+        .panel p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        .panel ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+        .panel li {
+            padding: 10px 0;
+            border-bottom: 1px solid #282828;
+            line-height: 1.5;
+        }
+        .panel li:last-child {
+            border-bottom: none;
+        }
+        .badge {
+            background-color: #d9534f;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-left: 8px;
+            display: inline-block;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="page">
+<div class="container">
+    <h1>UKRAINE RP | Emergency Hamburg</h1>
+    <div class="subtitle">База знань: Правила сервера, Кримінальний кодекс та Регламенти органів</div>
 
-    <!-- ================= ТОВАР ================= -->
-
-    <div class="product" id="productPage">
-
-        <div>
-            <img
-                src="product.png"
-                class="product-img"
-                alt="Murder Mystery 2"
-            >
-        </div>
-
-        <div class="info">
-
-            <div class="price-row">
-                <span class="price">210 ₽</span>
-
-                <span class="discount">
-                    -58%
-                </span>
-
-                <span class="old-price">
-                    499
-                </span>
-            </div>
-
-            <div class="title">
-                🎁 АКЦИЯ 4 НОЖЕЙ + ПОДАРОК |
-                Murder Mystery 2 🎁
-            </div>
-
-            <div class="rating">
-                ★★★★★ &nbsp; 2226 отзывов
-            </div>
-
-            <div class="delivery">
-
-                <div class="delivery-title">
-                    📦 Способ получения
-                </div>
-
-                <div>
-                    Трейд
-                </div>
-
-                <div class="delivery-small">
-                    Передача предметов трейдом
-                </div>
-
-            </div>
-
-            <button
-                class="buy"
-                onclick="openPayment()"
-            >
-                Купить
-            </button>
-
-            <div class="guarantee">
-                🛡️ Гарантия Playerok ›
-            </div>
-
-        </div>
-
+    <div class="controls">
+        <input type="text" id="searchBar" placeholder="Пошук по правилах, статтях чи регламентах..." onkeyup="filterRules()">
+        <button id="toggleBtn" onclick="toggleAll()">Розгорнути все</button>
     </div>
 
-
-    <!-- ================= ОПЛАТА ================= -->
-
-    <div class="payment" id="paymentPage">
-
-        <h1>
-            Оплата заказа
-        </h1>
-
-        <div class="order">
-
-            <img src="product.png">
-
-            <div>
-                <b>
-                    4 ножей + подарок
-                </b>
-
-                <div class="order-price">
-                    210 ₽
-                </div>
-            </div>
-
-        </div>
-
-
-        <label>
-            Username
-        </label>
-
-        <input
-            id="username"
-            type="text"
-            placeholder="@username"
-        >
-
-
-        <label>
-            Номер карты
-        </label>
-
-        <input
-            id="card"
-            type="text"
-            placeholder="0000 0000 0000 0000"
-            maxlength="19"
-        >
-
-
-        <div class="row">
-
-            <div>
-
-                <label>
-                    Срок
-                </label>
-
-                <input
-                    id="date"
-                    type="text"
-                    placeholder="MM/YY"
-                    maxlength="5"
-                >
-
-            </div>
-
-
-            <div>
-
-                <label>
-                    CVV
-                </label>
-
-                <input
-                    id="cvv"
-                    type="text"
-                    placeholder="000"
-                    maxlength="3"
-                >
-
-            </div>
-
-        </div>
-
-
-        <button
-            class="pay"
-            onclick="startPayment()"
-        >
-            Оплатить 210 ₽
-        </button>
-
-
-        <div class="demo">
-            🔒 Демо-режим — реальные деньги не списываются
-        </div>
-
-
-        <button
-            class="back"
-            onclick="backToProduct()"
-        >
-            ← Назад
-        </button>
-
+    <!-- РОЗДІЛ 1: ПРАВИЛА СЕРВЕРА -->
+    <button class="accordion">📜 ОСНОВНІ ПРАВИЛА СЕРВЕРА (ПАКЕТ ПРАВИЛ 1-23)</button>
+    <div class="panel">
+        <ul>
+            <li><b>1. Повага, антибулінг та особистий простір:</b> Заборонено будь-яку токсичність, образи, цькування, булінг та дискримінацію гравців. <span class="badge">Mute 30-120 хв / Ban</span></li>
+            <li><b>2. Правила дорожнього руху (ПДР):</b> Обов'язкове дотримання смуг руху, правил обгону та світлофорів. Заборонено умисний таран (VDM/DB) та агресивне водіння без RP-причини. <span class="badge">Деморган 30-60 хв</span></li>
+            <li><b>3. Використання читів та багів:</b> Використання софту, читів, скриптів або використання помилок гри (багоюз) для власної вигоди. <span class="badge">Пермабан / ЧС</span></li>
+            <li><b>4. Службові обов'язки:</b> Працівники державних та приватних служб зобов'язані суворо дотримуватися своїх службових інструкцій. <span class="badge">Догана / Warn</span></li>
+            <li><b>5. Рейди:</b> Проведення масових рейдів дозволено виключно за наявності вагомих RP-підстав та санкцій від судових органів чи прокуратури. <span class="badge">Warn</span></li>
+            <li><b>6. Non-RP поведінка:</b> Заборонено здійснювати дії, які неможливі або нелогічні в реальному житті. <span class="badge">Деморган 15-60 хв</span></li>
+            <li><b>7. Green Zone (Зелена Зона):</b> У безпечних зонах (спавни, лікарні, мерія, автосалони) заборонені будь-які перестрілки, викрадення, пограбування та кримінальні дії. <span class="badge">Деморган 60-120 хв / Warn</span></li>
+            <li><b>8. Поширення ворожої пропаганди:</b> Суворо заборонено використання символіки держави-агресора, висловлювання на підтримку окупації та розпалювання ворожнечі. <span class="badge">Пермабан</span></li>
+            <li><b>9. Тимчасове привласнення території:</b> Блокування або захоплення ділянок дозволено лише під час RP-подій за участю кримінальних структур. <span class="badge">Деморган 60 хв</span></li>
+            <li><b>10. Партнерські шлюби:</b> Реєстрація шлюбів проводиться через офіційну систему ДАРШ.</li>
+            <li><b>11. Використання зброї:</b> Заборонено відкрито носити зброю без вагомої RP-причини, використовувати стрільбу в Зеленій Зоні або провокувати перестрілки (Shoot in GZ / DM). <span class="badge">Деморган 60-90 хв</span></li>
+            <li><b>12. Безпека та OOC-поведінка:</b> Чітке розмежування IC (ігрового) та OOC (позаігрового) чату. Заборонено переносу конфліктів з OOC в IC. <span class="badge">Mute 30-60 хв</span></li>
+            <li><b>13. КПП та блокпости:</b> Облаштування блокпостів та перевірка документів дозволена лише силам поліції, СБС та ДБР за наказом керівництва. <span class="badge">Warn</span></li>
+            <li><b>14. Правоохоронні органи:</b> Повний регламент взаємодії із силами правопорядку, обов'язковість підкорення законним вимогам. <span class="badge">Арешт / Деморган</span></li>
+            <li><b>15. Майно:</b> Заборонено шахрайство, нелегітимне привласнення майна чи обман гравців під час угод. <span class="badge">Ban 7-30 днів</span></li>
+            <li><b>16. Корупція:</b> Отримання хабарів дозволяється виключно в рамках спланованих RP-ситуацій для викриття. Використання корупції ради власної наживи заборонено. <span class="badge">Звільнення / Ban</span></li>
+            <li><b>17. Продаж контрабанди:</b> Продаж зброї та нелегальних предметів дозволений тільки у спеціально відведених місцях поза зоною видимості держслужб. <span class="badge">Арешт</span></li>
+            <li><b>18. Суд:</b> Порядок вирішення суперечок та розгляду кримінальних справ через судову систему.</li>
+            <li><b>19. Зовнішній вигляд:</b> Адекватність скінів, заборона використання нон-РП аксессуарів та образливих зовнішніх виглядів. <span class="badge">Kick / Mute</span></li>
+            <li><b>20. ОЗУ:</b> Діяльність організованих злочинних угруповань має відповідати статуту та правилам кримінальних організацій. <span class="badge">Warn</span></li>
+            <li><b>21. Проведення мирних мітингів/протестів:</b> Необхідне обов'язкове узгодження з Мерією або адміністрацією заздалегідь. <span class="badge">Деморган 30-60 хв</span></li>
+            <li><b>22. ТАКСІ:</b> Регламент надання послуг пасажирських перевезень.</li>
+            <li><b>23. Порушення Конституції сервера:</b> Відповідальність за прямі порушення конституційних прав і свобод громадян сервера. <span class="badge">Ban 7-30 днів</span></li>
+        </ul>
     </div>
 
-
-    <!-- ================= ПРОВЕРКА ================= -->
-
-    <div
-        class="processing"
-        id="processingPage"
-    >
-
-        <div class="loader"></div>
-
-        <h2 id="processingTitle">
-            Проверяем данные...
-        </h2>
-
-        <p id="processingText">
-            Подождите несколько секунд
-        </p>
-
-        <div
-            class="status"
-            id="status"
-        >
-            Подключение к платёжной системе...
-        </div>
-
+    <!-- РОЗДІЛ 2: КРИМІНАЛЬНИЙ КОДЕКС -->
+    <button class="accordion">⚖️ КРИМІНАЛЬНИЙ КОДЕКС СЕРВЕРА</button>
+    <div class="panel">
+        <ul>
+            <li><b>Розділ 1. Пограбування:</b> Заборонено грабувати гравців без наявності зброї, у Зелених Зонах або без належного RP-відгравання дій. <span class="badge">Деморган 60-120 хв</span></li>
+            <li><b>Розділ 2. Завдання шкоди здоров'ю:</b> Нанесення тілесних ушкоджень, напад із застосуванням холодної чи вогнепальної зброї, вбивство (DM/RDM). <span class="badge">Арешт / Деморган 60-90 хв</span></li>
+            <li><b>Розділ 3. Майно:</b> Крадіжка приватного або державного майна, умисне пошкодження ТЗ, незаконний угон автотранспорту. <span class="badge">Штраф / Арешт</span></li>
+            <li><b>Розділ 4. Правила дорожнього руху:</b> Небезпечне водіння, навмисне створення аварійних ситуацій, втеча з місця ДТП чи переслідування поліцією. <span class="badge">Штраф / Позбавлення прав</span></li>
+            <li><b>Розділ 5. Додаткові статті:</b> Злісне непідкорення вимогам правоохоронців, проникнення на закриті або військові об'єкти, носіння та збут нелегальної зброї/контрабанди. <span class="badge">Арешт / Конфіскація</span></li>
+        </ul>
     </div>
 
-
-    <!-- ================= УСПЕШНАЯ ОПЛАТА ================= -->
-
-    <div
-        class="success"
-        id="successPage"
-    >
-
-        <div class="success-icon">
-            ✓
-        </div>
-
-        <h1>
-            Оплачено!
-        </h1>
-
-        <p>
-            Оплата успешно завершена.
-        </p>
-
-        <div class="username">
-            Username:
-            <span id="resultUsername"></span>
-        </div>
-
-        <p>
-            📦 Продукт придёт в течение
-            <b>1–14 дней</b>.
-        </p>
-
-        <p style="margin-top:15px;">
-            Спасибо за покупку ❤️
-        </p>
-
-        <button
-            class="done"
-            onclick="location.reload()"
-        >
-            Вернуться в магазин
-        </button>
-
+    <!-- РОЗДІЛ 3: АДМІНІСТРАЦІЯ -->
+    <button class="accordion">🛡️ РЕГЛАМЕНТ АДМІНІСТРАЦІЇ СЕРВЕРА</button>
+    <div class="panel">
+        <h3>Загальні положення</h3>
+        <p>Адміністрація має право карати гравців за будь-які порушення правил серверу, щоб забезпечити порядок та підтримувати RP-атмосферу. Вона відповідає за дотримання правил, надання допомоги гравцям та контролювання їхніх дій. Адміністратор не є гравцем з привілеями, а є службовою особою, яка діє в інтересах спільноти. Всі дії мають бути об'єктивними та обґрунтованими.</p>
+        
+        <h3>Обов'язкові правила для адміністрації:</h3>
+        <ul>
+            <li><b>1.1 - 1.2. Дотримання ролі та RP-процесу:</b> Адміністратор повинен залишатися в рамках своєї ролі та не втручатися в ігровий процес без необхідності. Усі дії мають відповідати RP-процесу.</li>
+            <li><b>2.1 - 2.2. Знання правил:</b> Адміністратор зобов'язаний відмінно знати всі правила серверу, стежити за оновленнями та суворо їх дотримуватися.</li>
+            <li><b>3.1 - 3.2. Обґрунтовані покарання:</b> Будь-який бан, кік або деморган має бути аргументованим. При видачі бана обов'язково вказується чітка причина у відповідній гілці.</li>
+            <li><b>4.1 - 4.2. Заборона зловживання:</b> Заборонено використовувати свої права для особистої вигоди, привілеїв чи допомоги гравцям поза межами RP.</li>
+            <li><b>5.1 - 5.2. Неупередженість:</b> Рівність усіх гравців перед правилами незалежно від статусу, знайомств чи досвіду.</li>
+            <li><b>6.1 - 7.2. Комунікація та етика:</b> Чемне поводження, заборона вступу в конфлікти. Внутрішня адміністративна інформація є конфіденційною.</li>
+            <li><b>8.1 - 8.4. Використання команд:</b> Використання адмін-команд для розваг, тролінгу чи отримання переваг суворо заборонене.</li>
+            <li><b>9.1 - 10.2. Відповідальність:</b> Заборонено створювати хаос або балуватися. За свої помилки адміністратор відповідає аж до пониження або зняття з посади.</li>
+            <li><b>11.1 - 11.2. Команда nametag:</b> Заборонено встановлювати імена, які не відповідають ролі, а також образливі чи провокаційні імена.</li>
+            <li><b>12.1 - 12.3. Заборона нелегалу:</b> Адміністратору суворо заборонено перебувати у бандах, картелях або брати участь у незаконній діяльності.</li>
+        </ul>
     </div>
 
+    <!-- РОЗДІЛ 4: ПОЛІЦІЯ (НПС) -->
+    <button class="accordion">🚔 НАЦІОНАЛЬНА ПОЛІЦІЯ СЕРВЕРА (НПС)</button>
+    <div class="panel">
+        <h3>Загальні тези та правила</h3>
+        <p>НПС є основним органом, який забезпечує охорону правопорядку, реагує на виклики, проводить затримання правопорушників та регулює дорожній рух.</p>
+        <ul>
+            <li>Спілкування з гравцями ведеться <b>виключно українською мовою</b>.</li>
+            <li>Штрафування та затримання проводяться лише за наявності обґрунтованих підстав та доказів.</li>
+            <li>Поліцейський зобов'язаний легітимуватися (пред'явити посвідчення) при взаємодії з громадянами.</li>
+            <li>Заборонено безпідставне використання зброї.Виїзд на виклики дозволений лише у парі з напарником.</li>
+            <li>Поліцейський має звітувати по кожній справі та штрафу, надавати докази дій.</li>
+        </ul>
+
+        <h3>Спеціалізація підрозділів НПС:</h3>
+        <ul>
+            <li><b>Patrol Police (Патрульна поліція):</b> Перша лінія реагування, цілодобове патрулювання, реагування на виклики, пограбування кас/магазинів/вендінгових апаратів, повідомлення про стрільбу. Контроль пунктів 1.1, 1.2, 11.3, 11.5, 11.6, 15.1, 15.2.</li>
+            <li><b>Traffic Police (Дорожня поліція):</b> Спеціалізований підрозділ контролю ПДР, виписування штрафів, оформлення ДТП, швидкісні переслідування. Не виїжджають на пограбування.</li>
+            <li><b>Undercover Police (Поліція під прикриттям):</b> Оперативно-розшукова діяльність без уніформи на цивільних авто, таємне стеження, збір доказів проти банд та контрабанди (пункти 11.3, 17).</li>
+            <li><b>КОРД / SEK:</b> Елітний тактичний спецназ для проведення штурмів, ліквідації озброєних злочинців та звільнення заручників.</li>
+        </ul>
+    </div>
+
+    <!-- РОЗДІЛ 5: ОРГАНИ ТА СЛУЖБИ -->
+    <button class="accordion">🏛️ СУД, ПРОКУРАТУРА, ДБР, СБС ТА МЕРІЯ</button>
+    <div class="panel">
+        <ul>
+            <li><b>СУД:</b> Забезпечує правосуддя. Суддям заборонено зловживати повноваженнями, приймати упереджені рішення або розглядати позови без належних доказів.</li>
+            <li><b>МЕРІЯ:</b> Головний орган виконавчої влади. Відповідає за видачу ліцензій, узгодження мирних мітингів та економічний стан штату.</li>
+            <li><b>ПРОКУРАТУРА:</b> Орган нагляду за дотриманням законів усіма службами. Прокурори мають право перевіряти законність затримань поліції та видавати ордери на арешт/рейд.</li>
+            <li><b>ДБР (Державне бюро розслідувань):</b> Займається розслідуванням важких злочинів, корупції у вищих ешелонах влади та правоохоронних органах.</li>
+            <li><b>СБС (Спеціальна служба безпеки):</b> Виконання розвідувальних та контррозвідувальних операцій, захист перших осіб штату. Інформація СБС є державною таємницею.</li>
+            <li><b>ДСНС:</b> Служби порятунку та реагування на надзвичайні ситуації, надання першої медичної допомоги.</li>
+        </ul>
+    </div>
 </div>
 
-
 <script>
+    var acc = document.getElementsByClassName("accordion");
+    var isExpanded = false;
 
-/* =========================================
-   ОТКРЫТЬ ОПЛАТУ
-========================================= */
-
-function openPayment() {
-
-    document.getElementById("productPage").style.display = "none";
-
-    document.getElementById("paymentPage").style.display = "block";
-
-    window.scrollTo(0, 0);
-}
-
-
-/* =========================================
-   НАЗАД
-========================================= */
-
-function backToProduct() {
-
-    document.getElementById("paymentPage").style.display = "none";
-
-    document.getElementById("productPage").style.display = "grid";
-}
-
-
-/* =========================================
-   НОМЕР КАРТЫ
-========================================= */
-
-document.getElementById("card").addEventListener(
-    "input",
-    function() {
-
-        let value = this.value
-            .replace(/\D/g, "")
-            .substring(0, 16);
-
-        let parts = value.match(/.{1,4}/g);
-
-        this.value = parts
-            ? parts.join(" ")
-            : "";
+    for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
     }
-);
 
+    function toggleAll() {
+        isExpanded = !isExpanded;
+        var btn = document.getElementById("toggleBtn");
+        btn.innerText = isExpanded ? "Згорнути все" : "Розгорнути все";
 
-/* =========================================
-   СРОК КАРТЫ
-========================================= */
-
-document.getElementById("date").addEventListener(
-    "input",
-    function() {
-
-        let value = this.value
-            .replace(/\D/g, "")
-            .substring(0, 4);
-
-        if (value.length >= 3) {
-
-            value =
-                value.substring(0, 2)
-                + "/"
-                + value.substring(2);
+        for (var i = 0; i < acc.length; i++) {
+            var panel = acc[i].nextElementSibling;
+            if (isExpanded) {
+                acc[i].classList.add("active");
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            } else {
+                acc[i].classList.remove("active");
+                panel.style.maxHeight = null;
+            }
         }
-
-        this.value = value;
-    }
-);
-
-
-/* =========================================
-   CVV
-========================================= */
-
-document.getElementById("cvv").addEventListener(
-    "input",
-    function() {
-
-        this.value =
-            this.value
-            .replace(/\D/g, "")
-            .substring(0, 3);
-    }
-);
-
-
-/* =========================================
-   НАЧАЛО ДЕМО-ОПЛАТЫ
-========================================= */
-
-function startPayment() {
-
-    const username =
-        document
-        .getElementById("username")
-        .value
-        .trim();
-
-    const card =
-        document
-        .getElementById("card")
-        .value
-        .replace(/\s/g, "");
-
-    const date =
-        document
-        .getElementById("date")
-        .value;
-
-    const cvv =
-        document
-        .getElementById("cvv")
-        .value;
-
-
-    /* Проверяем поля */
-
-    if (!username) {
-
-        alert("Введите username");
-
-        return;
     }
 
+    function filterRules() {
+        var input = document.getElementById("searchBar").value.toLowerCase();
+        var accordions = document.getElementsByClassName("accordion");
 
-    if (card.length !== 16) {
+        for (var i = 0; i < accordions.length; i++) {
+            var panel = accordions[i].nextElementSibling;
+            var items = panel.querySelectorAll("li, p");
+            var hasMatch = false;
 
-        alert(
-            "Введите 16 цифр тестовой карты"
-        );
+            for (var j = 0; j < items.length; j++) {
+                var text = items[j].innerText.toLowerCase();
+                if (text.includes(input)) {
+                    items[j].style.display = "";
+                    hasMatch = true;
+                } else if (input !== "") {
+                    items[j].style.display = "none";
+                } else {
+                    items[j].style.display = "";
+                }
+            }
 
-        return;
+            if (hasMatch || input === "") {
+                accordions[i].style.display = "";
+                if (input !== "") {
+                    accordions[i].classList.add("active");
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            } else {
+                accordions[i].style.display = "none";
+                panel.style.maxHeight = null;
+            }
+        }
     }
-
-
-    if (date.length !== 5) {
-
-        alert(
-            "Введите срок действия в формате MM/YY"
-        );
-
-        return;
-    }
-
-
-    if (cvv.length !== 3) {
-
-        alert(
-            "Введите 3 цифры тестового CVV"
-        );
-
-        return;
-    }
-
-
-    /* Скрываем оплату */
-
-    document.getElementById(
-        "paymentPage"
-    ).style.display = "none";
-
-
-    /* Показываем проверку */
-
-    document.getElementById(
-        "processingPage"
-    ).style.display = "block";
-
-
-    window.scrollTo(0, 0);
-
-
-    /*
-       ЭТАП 1
-       Проверка
-    */
-
-    setTimeout(function() {
-
-        document.getElementById(
-            "processingTitle"
-        ).textContent =
-            "Проверяем данные...";
-
-        document.getElementById(
-            "status"
-        ).textContent =
-            "Данные карты проверяются...";
-
-    }, 1000);
-
-
-    /*
-       ЭТАП 2
-       Подтверждение
-    */
-
-    setTimeout(function() {
-
-        document.getElementById(
-            "processingTitle"
-        ).textContent =
-            "Подтверждаем оплату...";
-
-        document.getElementById(
-            "status"
-        ).textContent =
-            "Платёж подтверждён системой...";
-
-    }, 2200);
-
-
-    /*
-       ЭТАП 3
-       Симуляция списания
-    */
-
-    setTimeout(function() {
-
-        document.getElementById(
-            "processingTitle"
-        ).textContent =
-            "Списываем 210 ₽...";
-
-        document.getElementById(
-            "status"
-        ).textContent =
-            "Проводим операцию...";
-
-    }, 3400);
-
-
-    /*
-       ЭТАП 4
-       Успешно
-    */
-
-    setTimeout(function() {
-
-        document.getElementById(
-            "processingPage"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "successPage"
-        ).style.display = "block";
-
-
-        document.getElementById(
-            "resultUsername"
-        ).textContent = username;
-
-
-        window.scrollTo(0, 0);
-
-    }, 5000);
-
-}
-
 </script>
 
 </body>
